@@ -223,6 +223,4 @@ object Tree {
 
   def map3[A,B](t: Tree[A])(f: A => B): Tree[B] =
     fold(t)(a => Leaf(f(a)): Tree[B])(Branch(_, _))
-
-  val tree = Branch(Branch(Leaf(1),Leaf(2)),Branch(Branch(Leaf(3),Leaf(4)),Leaf(5)))
 }
