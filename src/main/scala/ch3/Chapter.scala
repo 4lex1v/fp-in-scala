@@ -20,7 +20,7 @@ object List {
   def apply[A](as: A*): List[A] = 
     if (as.isEmpty) Nil
     else Cons(as.head, apply(as.tail: _*))
-
+	
   // Exercise_2
   def tail[A](xs: List[A]): List[A] = xs match {
     case Nil => Nil
