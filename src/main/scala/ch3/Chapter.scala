@@ -17,7 +17,11 @@ object List {
     case Cons(x, xs) => x * product(xs)
   }
 
+<<<<<<< HEAD
   def apply[A](as: A*): List[A] = 
+=======
+  def apply[A](as: A*): List[A] =
+>>>>>>> Indentation fixed
     if (as.isEmpty) Nil
     else Cons(as.head, apply(as.tail: _*))
 	
@@ -28,7 +32,7 @@ object List {
   }
 
   // Exercise_3
-  def drop[A](xs: List[A], n: Int): List[A] = 
+  def drop[A](xs: List[A], n: Int): List[A] =
     if (n <= 0) xs
     else xs match {
       case Nil => Nil
@@ -223,4 +227,10 @@ object Tree {
 
   def map3[A,B](t: Tree[A])(f: A => B): Tree[B] =
     fold(t)(a => Leaf(f(a)): Tree[B])(Branch(_, _))
+<<<<<<< HEAD
 }
+=======
+
+  val tree = Branch(Branch(Leaf(1),Leaf(2)),Branch(Branch(Leaf(3),Leaf(4)),Leaf(5)))
+}
+>>>>>>> Indentation fixed
