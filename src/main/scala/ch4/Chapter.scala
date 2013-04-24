@@ -1,6 +1,6 @@
 package fp.ch4
 
-import scala.util.{ Try, Success, Failure }
+import scala.util._
 import java.util.regex._
 
 sealed trait Option[+A] {
