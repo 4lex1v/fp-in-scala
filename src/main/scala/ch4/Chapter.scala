@@ -1,6 +1,6 @@
 package fp.ch4
 
-import scala.util._
+import scala.util.{ Try, Success, Failure }
 import java.util.regex._
 
 sealed trait Option[+A] {
@@ -100,6 +100,40 @@ object Option {
   def sequence5[A](seq: List[Option[A]]): Option[List[A]] = traverse(seq)(identity)
 }
 
+sealed trait Either[+E, +A] {
+
+  //Exercise_7
+  def map[B](f: A => B): Either[E, B] = this match {
+    case Left(e) => Left(e)
+    case Right(v) => Right(f(v))
+  }
+
+  def orElse[EE >: E, B >: A](b: => Either[EE, B]): Either[EE, B] = this match {
+    case Left(e) => b
+    case Right(v) => this
+  }
+
+  def flatMap[EE >: E, B](f: A => Either[EE, B]): Either[EE, B] =
+    this.map(f).flatMap(identity)
+
+  def map2[EE >: E, B, C](b: Either[EE, B])(f: (A, B) => C): Either[EE, C] =
+    this.flatMap{ x => b.map{ y => f(x, y) } }
+}
+case class Left[E](value: E) extends Either[E, Nothing]
+case class Right[A](value: A) extends Either[Nothing, A]
+
+object Either {
+  //Exercise_8
+  def sequence[E, A](x: List[Either[E, A]]): Either[E, List[A]] =
+    x.foldRight[Either[E, List[A]]](Right(Nil)){
+      (elem, acc) => elem.map2(acc)(_ :: _)
+    }
+
+  def traverse[E, A, B](x: List[A])(f: A => Either[E,B]): Either[E, List[B]] =
+    x.foldRight[Either[E, List[B]]](Right(Nil)){
+      (elem, acc) => f(elem).map2(acc)(_ :: _)
+    }
+}
 sealed trait Either[+E, +A] {
 
   //Exercise_7
