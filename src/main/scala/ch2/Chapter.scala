@@ -1,9 +1,8 @@
-package fp
+package fp.ch2
 
 import annotation._
 
 object Chapter2 {
-	
 	// Excercise_1
 	def fib(n: Int) = {
 		@tailrec
@@ -37,4 +36,3 @@ object Chapter2 {
 	// Excercise_6	
 	def compose[A,B,C](f: B => C, g: A => B): A => C = a => f(g(a))
 }
-
