@@ -1,4 +1,4 @@
-package ch7
+package fp.ch7_Parallelism
 
 import java.util.concurrent.{ExecutorService, TimeUnit, Future}
 

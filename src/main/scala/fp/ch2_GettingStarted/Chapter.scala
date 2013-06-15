@@ -1,4 +1,4 @@
-package fp.ch2
+package fp.ch2_GettingStarted
 
 import annotation._
 

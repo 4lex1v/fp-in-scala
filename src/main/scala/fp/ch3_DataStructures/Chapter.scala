@@ -1,4 +1,4 @@
-package fp.ch3
+package fp.ch3_DataStructures
 
 import annotation._
 

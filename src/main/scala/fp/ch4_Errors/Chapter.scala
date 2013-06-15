@@ -1,4 +1,4 @@
-package fp.ch4
+package fp.ch4_Errors
 
 import scala.util.{ Try, Success, Failure }
 import java.util.regex._

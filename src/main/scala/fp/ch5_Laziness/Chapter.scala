@@ -1,4 +1,4 @@
-package fp.ch5
+package fp.ch5_Laziness
 
 trait Stream[+A] {
   import Stream._
