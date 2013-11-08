@@ -6,6 +6,7 @@ trait Functor[F[_]] {
 
 trait Monad[M[_]] extends Functor[M] { self =>
   def point[A](a: => A): M[A]
+
   def flatMap[A, B](a: M[A])(f: A => M[B]): M[B]
 
   def map[A, B](a: M[A])(f: A => B): M[B] =
