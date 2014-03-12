@@ -101,6 +101,8 @@ object Part2 {
 
 object Part3 {
 
+  type Id[A] = A
+
   trait IO[F[_], +A]
   case class Pure[F[_], +A](get: A) extends IO[F, A]
   case class Request[F[_], I, +A](expr: F[I], receive: I => IO[F, A]) extends IO[F, A]
@@ -112,7 +114,9 @@ object Part3 {
   case object ReadLine extends Console[Option[String]]
   case class PrintLine(value: String) extends Console[Unit]
 
-  trait Run[F[_]] { def apply[A](expr: F[A]): (A, Run[F]) }
+  trait Run[F[_]] {
+    def apply[A](expr: F[A]): (A, Run[F])
+  }
 
   object Run {
     def run[F[_], A](R: Run[F])(io: IO[F, A]): A = io match {
@@ -121,6 +125,17 @@ object Part3 {
         R(expr) match { case (e, r2) => run(r2)(rec(e)) }
     }
   }
+
+  import scalaz._
+  import Scalaz._
+
+  object ConsoleRunner extends Run[Console] {
+    override def apply[A](expr: Console[A]) = expr match {
+      case ReadLine => (Some(readLine()), ConsoleRunner)
+      case PrintLine(value) => (println(value), ConsoleRunner)
+    }
+  }
+
 
   object IO {
 
